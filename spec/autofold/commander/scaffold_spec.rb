@@ -109,5 +109,6 @@ describe Autofold::Commander::Scaffold do
     end
   end
   describe "#_malformed_input" do
+    it "should have tests!"
   end
 end
