@@ -1,0 +1,1 @@
+has_many :<%= child_name.pluralize %>, :foreign_key => :<%= parent_name.singularize %>_id, :class_name => "<%= qualified_parent_name %>"

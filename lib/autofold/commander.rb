@@ -1,18 +1,12 @@
 module Autofold
   class Commander < Thor
 
-    class << self
-      def source_root
-        File.expand_path("../templates", __FILE__)
-      end
-    end
-
     desc "version", "Autofold version"
     def version
       say Autofold::Version
     end
 
-    desc "scaffold [NAMES]", "scaffolds out a resource vertical."
+    desc "scaffold [PROJECT] [NAMES]", "scaffolds out a resource vertical."
     long_desc <<-LONGDESC
       Scaffolds out a vertical resourceful gem with the given <name> in your current dir.
       Separate names of resources by ":", "()", and "+" characters.
@@ -52,14 +46,22 @@ module Autofold
           |- record.rb
           |- controller.rb 
     LONGDESC
-    def scaffold(names)
-      Scaffold.scaffold(names)
-      _create_file_tree _parse_to_expanded_names names
+    def scaffold(project_name, names)
+      BaseBuilder.from_project_name project_name
+      Scaffold.parse_to_simple_array(names).each do |things|
+        _twoify(things).each do |thing|
+          CoreBuilder.from_absolute_path(File.expand_path(project_name, Dir.pwd)).call *thing
+        end
+      end
     end
 
     private
-    # takes a string and expands it out to [{}]s
-    
+    # takes [s1,s2,s3...] and splits it into [[s1,s2], [s2,s3], [s3,s4]...]
+    def _twoify(array)
+      array.zip(array[1..-1]).reject { |a| a.last.nil? }
+    end
   end
 end
 require_relative "commander/scaffold"
+require_relative "commander/base_builder"
+require_relative "commander/core_builder"

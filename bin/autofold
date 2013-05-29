@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 
-require "autofold"
+require_relative "../lib/autofold"
 Autofold::Commander.start ARGV

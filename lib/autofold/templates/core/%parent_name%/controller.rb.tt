@@ -1,0 +1,17 @@
+module <%= class_project_name %>
+  class <%= class_parent_name %>::Controller < ::ApplicationController
+    respond_to :js, :json, :html, :xml
+    expose(:<%= parent_name %>) { <%= qualified_parent_name %>.find_by_id params[:id]}
+    def show
+      respond_with <%= parent_name %>
+    end
+
+    def update
+      respond_with <%= parent_name %>.update_attributes(params[:<%= parent_name %>])
+    end
+
+    def destroy
+      respond_with <%= parent_name %>.destroy
+    end
+  end
+end

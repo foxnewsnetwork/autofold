@@ -1,0 +1,9 @@
+module <%= class_project_name %>
+  class <%= qualified_child_name %>
+    class << self
+      def find_by_id
+
+      end
+    end    
+  end
+end

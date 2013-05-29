@@ -89,7 +89,7 @@ module Autofold
 
         def _break_on_something(names, something)
           raise ArgumentError.new("Malformed Input!") if _malformed_input?(names)
-          names.split("").inject(StatefulArray.new.push "") do |array, letter|
+          names.split("").inject(ParenthesisCountArray.new.push "") do |array, letter|
             array.push "" if letter == something && array.parenthesis_balanced?
             array.parenthesis_count += 1 if letter == "("
             array.parenthesis_count -= 1 if letter == ")" 
@@ -100,19 +100,20 @@ module Autofold
           end
         end
       end
+
+      class ParenthesisCountArray < Array
+        def parenthesis_count
+          @parenthesis_count ||= 0
+        end
+        def parenthesis_count=(n)
+          @parenthesis_count = n
+        end
+        def parenthesis_balanced?
+          parenthesis_count.zero?
+        end
+      end
     end
   end
 end
 
 
-class StatefulArray < Array
-  def parenthesis_count
-    @parenthesis_count ||= 0
-  end
-  def parenthesis_count=(n)
-    @parenthesis_count = n
-  end
-  def parenthesis_balanced?
-    parenthesis_count.zero?
-  end
-end

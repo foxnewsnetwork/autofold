@@ -1,0 +1,22 @@
+module <%= class_project_name %>
+  class <%= qualified_child_name %> < ::ApplicationController
+    respond_to :js, :json, :html, :xml
+    expose(:<%= parent_name.singularize %>) do
+      <%= class_parent_name %>.find_by_id(params[:<%= parent_name %>_id])
+    end
+    expose(:<%= child_name.singularize %>) do
+      <%= parent_name.singularize %>.create params[:<%= child_name %>]
+    end
+    expose(:<%= child_name.pluralize %> ) do
+      <%= parent_name.singularize %>.<%= child_name.pluralize %>.search params[:child_name]
+    end
+
+    def create
+      respond_with <%= child_name.singularize %>
+    end
+
+    def index
+      respond_with <%= child_name.pluralize %>
+    end
+  end
+end
