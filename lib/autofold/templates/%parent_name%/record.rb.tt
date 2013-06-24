@@ -1,6 +1,6 @@
 module <%= class_project_name %>
   class <%= class_parent_name %>Record < ::ActiveRecord::Base
     self.table_name = "<%= parent_name %>"
-    #= Inject Here! =#
+    ### Inject Here! ###
   end
 end

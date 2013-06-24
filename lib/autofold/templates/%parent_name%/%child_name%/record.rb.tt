@@ -2,6 +2,6 @@ module <%= class_project_name %>
   class <%= qualified_child_name %>::Record < ::ActiveRecord
     self.table_name = "<%= child_name.pluralize %>"
     belongs_to :<%= parent_name.singularize %>, :foreign_key => :<%= parent_name.singularize %>_id, :class_name => "<%= qualified_parent_name %>"
-    #= Inject Here =#
+    ### Inject Here ###
   end
 end

@@ -1,5 +1,5 @@
 module <%= class_project_name %>
   class <%= class_parent_name %>
-    #= Inject Here! =#
+    ### Inject Here ###
   end
 end

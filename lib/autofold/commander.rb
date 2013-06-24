@@ -47,10 +47,10 @@ module Autofold
           |- controller.rb 
     LONGDESC
     def scaffold(project_name, names)
-      BaseBuilder.from_project_name project_name
+      # BaseBuilder.from_project_name project_name
       Scaffold.parse_to_simple_array(names).each do |things|
         _twoify(things).each do |thing|
-          CoreBuilder.from_absolute_path(File.expand_path(project_name, Dir.pwd)).call *thing
+          CoreBuilder.from_path(project_name).call *thing
         end
       end
     end
